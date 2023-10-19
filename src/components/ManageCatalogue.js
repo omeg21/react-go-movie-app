@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 
 const ManageCatalogue = () => {
-
     const [movies, setMovies] = useState([]);
-    const {jwtToken} = useOutletContext();
+    const { jwtToken } = useOutletContext();
     const navigate = useNavigate();
 
     useEffect( () => {
         if (jwtToken === "") {
-            navigate("/login")
+            navigate("/login");
             return
         }
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-       headers.append("Authorization","Bearer " + jwtToken)
+        headers.append("Authorization", "Bearer " + jwtToken);
 
         const requestOptions = {
             method: "GET",
@@ -30,7 +29,7 @@ const ManageCatalogue = () => {
                 console.log(err);
             })
 
-    }, [jwtToken,navigate]);
+    }, [jwtToken, navigate]);
 
     return(
         <div>
@@ -48,7 +47,7 @@ const ManageCatalogue = () => {
                     {movies.map((m) => (
                         <tr key={m.id}>
                             <td>
-                                <Link to={`admin/movies/${m.id}`}>
+                                <Link to={`/admin/movie/${m.id}`}>
                                     {m.title}
                                 </Link>
                             </td>
